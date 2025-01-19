@@ -1,4 +1,4 @@
-## Service Status template for Zabbix 7.0 LTS
+## Service Status Active template for Zabbix 7.0 LTS
 
 This template is created with Zabbix Agent 2 in mind but it can be used with Zabbix Agent if paths are changed.  
 
