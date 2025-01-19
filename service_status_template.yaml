@@ -1,0 +1,32 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: dc579cd7a1a34222933f24f52a68bcd8
+      name: 'Linux servers'
+  templates:
+    - uuid: bf1424c95040488fb0906833c65c0722
+      template: 'Zabbix Agent 2 Active - Services Status'
+      name: 'Zabbix Agent 2 Active - Services Status'
+      groups:
+        - name: 'Linux servers'
+      discovery_rules:
+        - uuid: d4fa5b7c7ae9487294786f376241e2f4
+          name: 'Service Discovery'
+          type: ZABBIX_ACTIVE
+          key: service.discovery
+          delay: 1h
+          lifetime: 14d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 80ad85b752bb46e5a3b85efc25bd12f6
+              name: '{#SERVICENAME} Status'
+              type: ZABBIX_ACTIVE
+              key: 'service.status[{#SERVICENAME}]'
+              tags:
+                - tag: component
+                  value: service
+              trigger_prototypes:
+                - uuid: 0abce3e5d5374467ad06c14a3a1c0cbc
+                  expression: 'last(/Zabbix Agent 2 Active - Services Status/service.status[{#SERVICENAME}])=0'
+                  name: '{#SERVICENAME} is not running'
+                  priority: AVERAGE
