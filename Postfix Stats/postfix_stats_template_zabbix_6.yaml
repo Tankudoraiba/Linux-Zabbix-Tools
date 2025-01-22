@@ -1,6 +1,6 @@
 zabbix_export:
   version: '6.0'
-  date: '2025-01-22T10:55:13Z'
+  date: '2025-01-22T11:15:40Z'
   groups:
     - uuid: dc579cd7a1a34222933f24f52a68bcd8
       name: 'Linux servers'
@@ -23,23 +23,13 @@ zabbix_export:
             - tag: Application
               value: Postfix
           triggers:
-            - uuid: 3559e89c8a0b4dd7a8e36caf5a3a357b
-              expression: 'sum(/Zabbix Agent 2 Active - Postfix Stats/postfix.bounced,1h)>5'
-              name: 'Bounced Mail Queue size is above 5'
-              opdata: 'Current Queue: {ITEM.LASTVALUE}'
-              priority: AVERAGE
-            - uuid: e56b3e3f436f46dc9a00e79fc634ba32
-              expression: 'sum(/Zabbix Agent 2 Active - Postfix Stats/postfix.bounced,1h)>40'
-              name: 'Bounced Mail Queue size is above 40'
-              opdata: 'Current Queue: {ITEM.LASTVALUE}'
-              priority: HIGH
             - uuid: 66a0ef9bf8804ca98e43c48bfa6cc71f
-              expression: 'sum(/Zabbix Agent 2 Active - Postfix Stats/postfix.bounced,1h)>50'
-              name: 'Number of bounced mails in last hour is above 50'
+              expression: 'sum(/Zabbix Agent 2 Active - Postfix Stats/postfix.bounced,1h)>5'
+              name: 'Number of bounced mails in last hour is above 5'
               priority: AVERAGE
             - uuid: f651f063318f4a809fd1567c688b2c2a
-              expression: 'sum(/Zabbix Agent 2 Active - Postfix Stats/postfix.bounced,1h)>300'
-              name: 'Number of bounced mails in last hour is above 300'
+              expression: 'sum(/Zabbix Agent 2 Active - Postfix Stats/postfix.bounced,1h)>50'
+              name: 'Number of bounced mails in last hour is above 50'
               priority: HIGH
         - uuid: d70e1b159a884e0d973c6dd26042be6e
           name: 'Postfix Mails Deferred'
@@ -52,6 +42,15 @@ zabbix_export:
           tags:
             - tag: Application
               value: Postfix
+          triggers:
+            - uuid: 40380fd2bcb44095a40d6dc1c350f17a
+              expression: 'sum(/Zabbix Agent 2 Active - Postfix Stats/postfix.deferred,1h)>50'
+              name: 'Number of deffered mails in last hour is above 50'
+              priority: AVERAGE
+            - uuid: 25909bd620fe40f6aabcbc3b2fac2ef1
+              expression: 'sum(/Zabbix Agent 2 Active - Postfix Stats/postfix.deferred,1h)>150'
+              name: 'Number of deffered mails in last hour is above 150'
+              priority: HIGH
         - uuid: 0b878956ba9d4bdf87b1a9c6c04b2a74
           name: 'Postfix Mails Delivered'
           type: ZABBIX_ACTIVE
@@ -110,8 +109,8 @@ zabbix_export:
               opdata: 'Current Queue: {ITEM.LASTVALUE}'
               priority: AVERAGE
             - uuid: 6f73d665f38442c4b874483b9d3a684d
-              expression: 'last(/Zabbix Agent 2 Active - Postfix Stats/postfix.mailq)>500'
-              name: 'Mail Queue size is above 500'
+              expression: 'last(/Zabbix Agent 2 Active - Postfix Stats/postfix.mailq)>250'
+              name: 'Mail Queue size is above 250'
               opdata: 'Current Queue: {ITEM.LASTVALUE}'
               priority: HIGH
         - uuid: 2bd0689901624b098a47fdc41aa77146
@@ -121,17 +120,6 @@ zabbix_export:
           tags:
             - tag: Application
               value: Postfix
-          triggers:
-            - uuid: ff711853ec594c55b0c36eb5e2b7c17d
-              expression: 'last(/Zabbix Agent 2 Active - Postfix Stats/postfix.mailq.deffered)>50'
-              name: 'Deffered Mail Queue size is above 50'
-              opdata: 'Current Queue: {ITEM.LASTVALUE}'
-              priority: AVERAGE
-            - uuid: b05f4e493e9c46f78d76b6a93bc0cdf7
-              expression: 'last(/Zabbix Agent 2 Active - Postfix Stats/postfix.mailq.deffered)>300'
-              name: 'Deffered Mail Queue size is above 300'
-              opdata: 'Current Queue: {ITEM.LASTVALUE}'
-              priority: HIGH
         - uuid: 039f6b43e0244569bc1c7a81a4060575
           name: 'Postfix Mails Received'
           type: ZABBIX_ACTIVE
@@ -187,6 +175,15 @@ zabbix_export:
           tags:
             - tag: Application
               value: Postfix
+          triggers:
+            - uuid: ea7f9b1fd211466981f229d20130aca2
+              expression: 'sum(/Zabbix Agent 2 Active - Postfix Stats/postfix.rejected,1h)>50'
+              name: 'Number of rejected mails in last hour is above 50'
+              priority: AVERAGE
+            - uuid: 99b8e0e637f946deb65b5823b139324f
+              expression: 'sum(/Zabbix Agent 2 Active - Postfix Stats/postfix.rejected,1h)>150'
+              name: 'Number of rejected mails in last hour is above 150'
+              priority: HIGH
         - uuid: 988b0dc8c77949ec80a8d1893932c5d2
           name: 'Postfix Senders'
           type: ZABBIX_ACTIVE
