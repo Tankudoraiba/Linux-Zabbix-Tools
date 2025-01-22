@@ -1,0 +1,211 @@
+zabbix_export:
+  version: '6.0'
+  date: '2025-01-22T10:55:13Z'
+  groups:
+    - uuid: dc579cd7a1a34222933f24f52a68bcd8
+      name: 'Linux servers'
+  templates:
+    - uuid: 8c957983d86348a896811dc71f101aeb
+      template: 'Zabbix Agent 2 Active - Postfix Stats'
+      name: 'Zabbix Agent 2 Active - Postfix Stats'
+      groups:
+        - name: 'Linux servers'
+      items:
+        - uuid: 90047bec2347405a8b73fede8f2d6045
+          name: 'Postfix Mails Bounced'
+          type: ZABBIX_ACTIVE
+          key: postfix.bounced
+          preprocessing:
+            - type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          tags:
+            - tag: Application
+              value: Postfix
+          triggers:
+            - uuid: 3559e89c8a0b4dd7a8e36caf5a3a357b
+              expression: 'sum(/Zabbix Agent 2 Active - Postfix Stats/postfix.bounced,1h)>5'
+              name: 'Bounced Mail Queue size is above 5'
+              opdata: 'Current Queue: {ITEM.LASTVALUE}'
+              priority: AVERAGE
+            - uuid: e56b3e3f436f46dc9a00e79fc634ba32
+              expression: 'sum(/Zabbix Agent 2 Active - Postfix Stats/postfix.bounced,1h)>40'
+              name: 'Bounced Mail Queue size is above 40'
+              opdata: 'Current Queue: {ITEM.LASTVALUE}'
+              priority: HIGH
+            - uuid: 66a0ef9bf8804ca98e43c48bfa6cc71f
+              expression: 'sum(/Zabbix Agent 2 Active - Postfix Stats/postfix.bounced,1h)>50'
+              name: 'Number of bounced mails in last hour is above 50'
+              priority: AVERAGE
+            - uuid: f651f063318f4a809fd1567c688b2c2a
+              expression: 'sum(/Zabbix Agent 2 Active - Postfix Stats/postfix.bounced,1h)>300'
+              name: 'Number of bounced mails in last hour is above 300'
+              priority: HIGH
+        - uuid: d70e1b159a884e0d973c6dd26042be6e
+          name: 'Postfix Mails Deferred'
+          type: ZABBIX_ACTIVE
+          key: postfix.deferred
+          preprocessing:
+            - type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          tags:
+            - tag: Application
+              value: Postfix
+        - uuid: 0b878956ba9d4bdf87b1a9c6c04b2a74
+          name: 'Postfix Mails Delivered'
+          type: ZABBIX_ACTIVE
+          key: postfix.delivered
+          preprocessing:
+            - type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          tags:
+            - tag: Application
+              value: Postfix
+        - uuid: 5280253aaf41432f8c56483c27b594ea
+          name: 'Postfix Mails Discarded'
+          type: ZABBIX_ACTIVE
+          key: postfix.discarded
+          preprocessing:
+            - type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          tags:
+            - tag: Application
+              value: Postfix
+        - uuid: ddfdea6711a043c091e85052c481a9f4
+          name: 'Postfix Mails Forwarded'
+          type: ZABBIX_ACTIVE
+          key: postfix.forwarded
+          preprocessing:
+            - type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          tags:
+            - tag: Application
+              value: Postfix
+        - uuid: 853b37fe7e8b44b98c91a13562175b19
+          name: 'Postfix Mails Held'
+          type: ZABBIX_ACTIVE
+          key: postfix.held
+          preprocessing:
+            - type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          tags:
+            - tag: Application
+              value: Postfix
+        - uuid: fa320688215b414dabe05e2255f7f3c4
+          name: 'Postfix Mail Queue'
+          type: ZABBIX_ACTIVE
+          key: postfix.mailq
+          tags:
+            - tag: Application
+              value: Postfix
+          triggers:
+            - uuid: bf9f113576794d33af7cc6a4cdcbb926
+              expression: 'last(/Zabbix Agent 2 Active - Postfix Stats/postfix.mailq)>50'
+              name: 'Mail Queue size is above 50'
+              opdata: 'Current Queue: {ITEM.LASTVALUE}'
+              priority: AVERAGE
+            - uuid: 6f73d665f38442c4b874483b9d3a684d
+              expression: 'last(/Zabbix Agent 2 Active - Postfix Stats/postfix.mailq)>500'
+              name: 'Mail Queue size is above 500'
+              opdata: 'Current Queue: {ITEM.LASTVALUE}'
+              priority: HIGH
+        - uuid: 2bd0689901624b098a47fdc41aa77146
+          name: 'Postfix Deffered Mail Queue'
+          type: ZABBIX_ACTIVE
+          key: postfix.mailq.deffered
+          tags:
+            - tag: Application
+              value: Postfix
+          triggers:
+            - uuid: ff711853ec594c55b0c36eb5e2b7c17d
+              expression: 'last(/Zabbix Agent 2 Active - Postfix Stats/postfix.mailq.deffered)>50'
+              name: 'Deffered Mail Queue size is above 50'
+              opdata: 'Current Queue: {ITEM.LASTVALUE}'
+              priority: AVERAGE
+            - uuid: b05f4e493e9c46f78d76b6a93bc0cdf7
+              expression: 'last(/Zabbix Agent 2 Active - Postfix Stats/postfix.mailq.deffered)>300'
+              name: 'Deffered Mail Queue size is above 300'
+              opdata: 'Current Queue: {ITEM.LASTVALUE}'
+              priority: HIGH
+        - uuid: 039f6b43e0244569bc1c7a81a4060575
+          name: 'Postfix Mails Received'
+          type: ZABBIX_ACTIVE
+          key: postfix.received
+          preprocessing:
+            - type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          tags:
+            - tag: Application
+              value: Postfix
+        - uuid: d008046697c8441296951089d24ddb52
+          name: 'Postfix Recipients'
+          type: ZABBIX_ACTIVE
+          key: postfix.recipients
+          preprocessing:
+            - type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          tags:
+            - tag: Application
+              value: Postfix
+        - uuid: 674fddfaaf754fee9975f252ba3a7d8e
+          name: 'Postfix Recipients Hosts'
+          type: ZABBIX_ACTIVE
+          key: postfix.recipients.hosts
+          preprocessing:
+            - type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          tags:
+            - tag: Application
+              value: Postfix
+        - uuid: 9f99bdb65e814f4caf0c739f2e322919
+          name: 'Postfix Mails Reject Warnings'
+          type: ZABBIX_ACTIVE
+          key: postfix.reject.warnings
+          preprocessing:
+            - type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          tags:
+            - tag: Application
+              value: Postfix
+        - uuid: 1f48dbcc2d6149d6b07f27a5f6809dc3
+          name: 'Postfix Mails Rejected'
+          type: ZABBIX_ACTIVE
+          key: postfix.rejected
+          preprocessing:
+            - type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          tags:
+            - tag: Application
+              value: Postfix
+        - uuid: 988b0dc8c77949ec80a8d1893932c5d2
+          name: 'Postfix Senders'
+          type: ZABBIX_ACTIVE
+          key: postfix.senders
+          preprocessing:
+            - type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          tags:
+            - tag: Application
+              value: Postfix
+        - uuid: e8653907b05f4d308d1fd3d089a8162b
+          name: 'Postfix Senders Hosts'
+          type: ZABBIX_ACTIVE
+          key: postfix.senders.hosts
+          preprocessing:
+            - type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          tags:
+            - tag: Application
+              value: Postfix
