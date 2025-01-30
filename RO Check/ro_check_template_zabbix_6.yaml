@@ -1,0 +1,30 @@
+zabbix_export:
+  version: '6.0'
+  date: '2025-01-27T09:44:48Z'
+  groups:
+    - uuid: dc579cd7a1a34222933f24f52a68bcd8
+      name: 'Linux servers'
+  templates:
+    - uuid: d5cbbbbdd38b4341a1de6a0c4547a79b
+      template: 'Zabbix Agent 2 Active - RO Check'
+      name: 'Zabbix Agent 2 Active - RO Check'
+      groups:
+        - name: 'Linux servers'
+      items:
+        - uuid: f7944917eea24bb3bde69a2059c2726e
+          name: 'Read Only Check'
+          type: ZABBIX_ACTIVE
+          key: ro_check
+          history: 30d
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: system
+              value: 'mount ro'
+          triggers:
+            - uuid: 3c6535f138ba411c818dd7bc6513e3c8
+              expression: 'find(/Zabbix Agent 2 Active - RO Check/ro_check,,"like","ro,")=1'
+              name: 'One of the system mounts is in read only state'
+              opdata: '{ITEM.LASTVALUE1}'
+              priority: DISASTER
+              description: 'One of the system mount points is in read only state.'
