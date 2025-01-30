@@ -25,6 +25,6 @@ zabbix_export:
             - uuid: 3c6535f138ba411c818dd7bc6513e3c8
               expression: 'find(/Zabbix Agent 2 Active - RO Check/ro_check,,"like","ro,")=1'
               name: 'One of the system mounts is in read only state'
-              opdata: '{ITEM.LASTVALUE1}'
+              opdata: '{ITEM.LASTVALUE}'
               priority: DISASTER
               description: 'One of the system mount points is in read only state.'
