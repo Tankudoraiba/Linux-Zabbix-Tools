@@ -1,0 +1,27 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: dc579cd7a1a34222933f24f52a68bcd8
+      name: 'Linux servers'
+  templates:
+    - uuid: e3419f13bc874544a943d1b5c7c6ba62
+      template: 'Zabbix Agent 2 Active - Auth Fail'
+      name: 'Zabbix Agent 2 Active - Auth Fail'
+      groups:
+        - name: 'Linux servers'
+      items:
+        - uuid: bf5b370d30ce46868e9c55bac9d7bbd0
+          name: 'Auth Fail Check'
+          type: ZABBIX_ACTIVE
+          key: auth.fail
+          history: 90d
+          value_type: TEXT
+          trends: '0'
+          triggers:
+            - uuid: 0235b5b238b04c8397ade1471ddac3ab
+              expression: 'find(/Zabbix Agent 2 Active - Auth Fail/auth.fail,5m,"like","Failed password")=1'
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: 'find(/Zabbix Agent 2 Active - Auth Fail/auth.fail,5m,"like","Failed password")=0'
+              name: 'Min 1 failed login attempt in last 5 minutes'
+              opdata: '{ITEM.LASTVALUE}'
+              priority: WARNING
