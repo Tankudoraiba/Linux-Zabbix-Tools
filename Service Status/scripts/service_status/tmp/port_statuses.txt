@@ -1,0 +1,3 @@
+
+fcgiwrap-infomex-pl.service,10050
+zabbix-agent2.service,10050
