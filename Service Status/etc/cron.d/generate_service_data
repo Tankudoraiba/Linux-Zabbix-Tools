@@ -1,0 +1,2 @@
+*/5 * * * * root /etc/zabbix/zabbix_agent2.d/scripts/service_status/discover_service.sh > /dev/null
+*/5 * * * * root /etc/zabbix/zabbix_agent2.d/scripts/service_status/discover_service_port.sh > /dev/null
