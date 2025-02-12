@@ -25,12 +25,19 @@ zabbix_export:
               tags:
                 - tag: component
                   value: service
+                - tag: type
+                  value: status
               trigger_prototypes:
                 - uuid: dd164cd24c734c2fa3107a787326cc5f
                   expression: 'last(/Zabbix Agent 2 Active - Linux Services Status/service.status[{#SERVICENAME}])=0'
                   name: '{#SERVICENAME} is not running'
                   priority: AVERAGE
                   description: '{#SERVICENAME} is not running'
+                  tags:
+                    - tag: component
+                      value: service
+                    - tag: type
+                      value: port
             - uuid: 950d1c4aa2f346d8a274f55174f976b1
               name: '{#SERVICENAME} Uptime'
               type: ZABBIX_ACTIVE
@@ -45,3 +52,35 @@ zabbix_export:
                   name: '{#SERVICENAME} has been restarted'
                   priority: WARNING
                   description: 'Service {#SERVICENAME} has uptime below 2m'
+                  tags:
+                    - tag: component
+                      value: service
+                    - tag: type
+                      value: port
+        - uuid: 2e656eb7c5c240928fe99f46c91d7856
+          name: 'Service Port Discovery'
+          type: ZABBIX_ACTIVE
+          key: service.port.discovery
+          delay: 5m
+          lifetime: 5d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: ce6a44b0b3704fbb8a94ffc1866a8115
+              name: '{#SERVICENAME} - {#TYPE} port {#PORT} - status'
+              type: ZABBIX_ACTIVE
+              key: 'net.tcp.port[127.0.0.1,{#PORT}]'
+              tags:
+                - tag: component
+                  value: service
+                - tag: type
+                  value: port
+              trigger_prototypes:
+                - uuid: dca23fa66fa3488cb8ac34364e22682e
+                  expression: 'last(/Zabbix Agent 2 Active - Linux Services Status/net.tcp.port[127.0.0.1,{#PORT}])=0'
+                  name: '{#SERVICENAME} port {#PORT} is inactive'
+                  priority: AVERAGE
+                  tags:
+                    - tag: component
+                      value: service
+                    - tag: type
+                      value: port
