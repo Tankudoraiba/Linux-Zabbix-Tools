@@ -48,7 +48,9 @@ zabbix_export:
                   value: service
               trigger_prototypes:
                 - uuid: 3f267593f5634c588c7e0f4f6c442cb0
-                  expression: 'last(/Zabbix Agent 2 Active - Linux Services Status/service.uptime[{#SERVICENAME}])<2m'
+                  expression: 'last(/Zabbix Agent 2 Active - Linux Services Status/service.uptime[{#SERVICENAME}])=1m'
+                  recovery_mode: RECOVERY_EXPRESSION
+                  recovery_expression: 'last(/Zabbix Agent 2 Active - Linux Services Status/service.uptime[{#SERVICENAME}])=3m'
                   name: '{#SERVICENAME} has been restarted'
                   priority: WARNING
                   description: 'Service {#SERVICENAME} has uptime below 2m'

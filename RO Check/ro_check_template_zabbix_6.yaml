@@ -28,3 +28,6 @@ zabbix_export:
               opdata: '{ITEM.LASTVALUE}'
               priority: DISASTER
               description: 'One of the system mount points is in read only state.'
+              tags:
+                - tag: System
+                  value: security
